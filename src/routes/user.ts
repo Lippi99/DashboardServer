@@ -11,7 +11,7 @@ let dashboard = new Dashboard();
 router.post("/register", user.signUp);
 router.post("/login", user.signIn);
 router.get("/me", tokenValidation, user.personalProfile);
-router.get("/users", dashboard.filter);
-router.get("/gender", dashboard.gender);
+router.get("/users", tokenValidation, dashboard.filter);
+router.get("/gender", tokenValidation, dashboard.gender);
 
 export default router;

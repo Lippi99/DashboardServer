@@ -74,8 +74,6 @@ export class User {
         return res.status(404).json({ error: "User or password invalid" });
       }
 
-      
-
       const token = jwt.sign(
         {
           id: accountExists._id,
@@ -86,7 +84,7 @@ export class User {
           bith: accountExists.birth,
         },
         `${process.env.TOKEN_SECRET}`,
-        {expiresIn: 86400}
+        { expiresIn: 86400 }
       );
 
       const authData = {
@@ -97,7 +95,6 @@ export class User {
         gender: accountExists.gender,
         admin: accountExists.admin,
       };
-
 
       const { name, admin, bith, email, gender, id } = authData;
       res.header("authorization", token);
@@ -117,13 +114,23 @@ export class User {
       return jwt.verify(
         token,
         `${process.env.TOKEN_SECRET}`,
-        async (err, decodedToken) => {
-          if (err) {
-            next();
-          } else {
-            res.status(200).send(decodedToken);
+        async (authorization, secretToken: any) => {
+          try {
+            const retrieveUser = await UserModel.findOne(
+              {
+                email: secretToken.email,
+              },
+              {
+                _id: 0,
+                __v: 0,
+                password: 0,
+              }
+            );
+            res.status(200).json(retrieveUser);
+          } catch (error) {
+            res.status(404).json({ error: "User not found" });
           }
-        },      
+        }
       );
     } else {
       res.status(404).send("erro");

@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 export const tokenValidation = (
-  req: Request,
+  req: any,
   res: Response,
   next: NextFunction
 ) => {
@@ -11,7 +11,9 @@ export const tokenValidation = (
   }
   try {
     const userVerified = jwt.verify(token, `${process.env.TOKEN_SECRET}`);
+
     req.user = userVerified;
+
     next();
   } catch (error) {
     res.status(401).json({ error: "Access Denied" });
