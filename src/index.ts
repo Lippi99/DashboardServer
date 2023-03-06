@@ -7,6 +7,10 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 
+app.get("/", (req, res) => {
+  return res.json({ message: "I'm running!" });
+});
+
 const runMongo = async (): Promise<void> => {
   try {
     await connect(process.env.MONGO_URI as string);
