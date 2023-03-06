@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import { connect } from "mongoose";
 import userRouter from "./routes/user";
-import adminRouter from "./routes/admin";
 import cors from "cors";
 
 const app = express();
@@ -20,6 +19,5 @@ runMongo();
 
 app.use(cors());
 app.use("/user/api", express.json(), userRouter);
-app.use("/admin", express.json(), adminRouter);
 
 app.listen(`${process.env.PORT}`);
