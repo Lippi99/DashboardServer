@@ -22,4 +22,4 @@ app.use(cors());
 app.use("/user/api", express.json(), userRouter);
 app.use("/admin", express.json(), adminRouter);
 
-app.listen(`${process.env.PORT}`, () => console.log("Running..."));
+app.listen(`${process.env.PORT}`);
