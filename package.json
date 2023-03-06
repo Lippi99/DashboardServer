@@ -5,6 +5,7 @@
   "author": "Felipe Salomao <lipesalomaoclaf@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --project ./",
     "client": "cd ../ && cd client && yarn dev",
     "start": "ts-node-dev --respawn --transpile-only src/index.ts",
     "dev": "concurrently \"yarn dev:server\" \"yarn client\""
